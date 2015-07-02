@@ -1,0 +1,135 @@
+********************************************************************
+Readme file for the example1 directory.
+
+File last updated: 9/22/2014
+
+The main script file is wan1-0.tcl.  It calls tcl routines from the networks.tcl file.
+It creates three nodes as follows:
+
+#
+#                 LINKSPEED1     LINKSPEED2  
+#tcp1 sink ...  n2 ------    n0 ------------- n1 ... tcp1 source
+#ping (echo)      PROPDELAY1     PROPDELAY2      ... ping (request)
+#
+#
+#
+
+********************************************************************
+
+To run the simulation:   ../../ns wan1-0.tcl > log.out
+
+And then we invoke a top level script ./getAllStats.script which in turn
+calls:
+
+./getPingStats.script
+./getAvgTCPThruput.script
+./getAvgQueueLevel.script
+./getUtilAvg.script
+~
+Each of these analyzes 4 output files:
+ping1.out
+thru1.out
+queue1.out
+trafficxnet.out
+
+
+Note: you might see warnings or messages displayed that indicate things are
+not working. Assuming all original settings, one easy check to see if
+the simulation completed successfully is to issue a 'cat TCPstats.out'.
+You should see something like:
+
+1 93454540 62302.0 0.0 0.0 0.0 0.0 0.50795683046098405 1497968.9841715086 0 0 0
+
+If an error occurs, this file is NOT created.  The 4th field from
+the end reflects the throughput achieved by the TCP connection.
+
+See below for an explanation of all fields in this file and in all output
+files created.
+
+Note:  there are many default parameters that come into play. The
+convention for ns2 is all configurable params for C++ simulation 
+objects are initialized in the file (base ns2) ~/tcl/lib/ns-default.tcl
+For example, in our script we set the tcp variable max congestion window to
+$tcp1 set maxcwnd_ $WINDOW (where $WINDOW is 1000 packets)
+
+
+********************************************************************
+
+Running the simulation produces a set of output files:
+
+log.out
+
+queue1.out
+trafficxnet.out
+xnetLR.out
+
+
+***********************************************
+General debug information:
+
+log.out: shows debug messages if they have been turned on in the source.  
+These might be from tcl or from the C++ simulation code.
+-rw-r--r--. 1 jjm jjm     105 Sep 20 12:36 log.out
+
+***********************************************
+Network/System information:
+-rw-rw-r--. 1 jjm jjm  134389 Sep 20 12:36 queue1.out
+-rw-rw-r--. 1 jjm jjm   15890 Sep 20 12:36 trafficxnet.out
+-rw-rw-r--. 1 jjm jjm     228 Sep 20 12:36 xnetLR.out
+
+queue1.out:  The wan1-0.tcl setups up a queue monitor (see TraceQueueSize in
+networks.tcl).
+     Format:  timestamp  (max queue level in interval)  (min queue level in interval) 
+
+trafficxnet.out:  Monitors the link utilization in a specific direction. The
+wan1-0.tcl script monitored the $n1 to $n0 direction.
+(See TraceQueueTraffic line in wan1-0.tcl)
+ Format: timestamp  (number of bytes observed in interval) (utilization
+defined by # of bytes observed / max possible bytes if 100% utilized)
+
+xnetLR.out: Monitors the loss rate over some interval (typically 20 seconds) 
+(See TraceQueueLossRate in want1-0.tcl)
+
+  Format:  timestamp  loss rate
+
+
+***********************************************
+Application/TCP information:
+-rw-rw-r--. 1 jjm jjm  179302 Sep 20 12:36 tcpsend1.out
+-rw-rw-r--. 1 jjm jjm 1344899 Sep 20 12:36 tcpTrace.out
+-rw-rw-r--. 1 jjm jjm      80 Sep 20 12:36 TCPstats.out
+-rw-rw-r--. 1 jjm jjm   10889 Sep 20 12:36 thru1.out
+-rw-rw-r--. 1 jjm jjm 1978812 Feb 19  2013 snumack.out
+
+TCPstats.out : THis file shows the tcp results. 
+ A separate line of results is added for all tcp connections that have the
+'dumpFinalTCPStats' line added (see the wan1-0.tcl-  it does it once for the
+$tcp1 connection).
+  Format:
+    Cxid, bytes delivered, pkts sent, pkts dropped, loss rate (%),
+    #timeouts, timeout rate (%), meanRTT, Thruput, 0, 0, 0
+       (note the last fields are always 0)
+
+tcpsend1.out:
+  Script routine: TCPTraceSendRate $ns $tcp1  .1  tcpsend1.out
+  output format:
+     time(seconds),  sendrate (bps),  numberBytes in interval
+
+
+tcpTrace.out:  A quick way to monitor the cwnd.  This file can get big, so you
+might want to comment it out (comment out the TraceTCP line in wan1-0.tcl).
+  Format:   timestamp  maxwnd cwnd
+
+thru1.out: This traces the tcp cx throughput.  Can create multiple files
+(e.g., thru2.out) if you want to track the throughput of other connections.
+See the call to TraceThroughput in wan1-0.tcl.
+  Format: timestamp  throughput (bps)  throughput (bytes per second)
+
+
+***********************************************
+-rw-rw-r--. 1 jjm jjm   28481 Sep 20 12:36 ping1.out
+
+ping1.out: dumps the ping probe results.  
+      Format:  timestamp rtt(in milliseconds)  seq# 
+
+

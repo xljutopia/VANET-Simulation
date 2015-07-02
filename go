@@ -1,0 +1,9 @@
+rm *.out
+rm *.nam
+rm *.tr
+ns aodv_vehicle5.tcl
+ns aodv_vehicle10.tcl
+ns aodv_vehicle15.tcl
+ns dsdv_vehicle5.tcl
+ns dsdv_vehicle10.tcl
+ns dsdv_vehicle15.tcl

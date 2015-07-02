@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+
+<!-- generated on Mon Dec  8 17:55:57 2014 by SUMO jtrrouter Version 0.12.3
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/jtrrouterConfiguration.xsd">
+
+    <input>
+        <net-file value="experiment.net.xml"/>
+        <flow-definition value="vehicle5.flow.xml"/>
+        <turn-definition value="turn.turn.xml"/>
+    </input>
+
+    <output>
+        <output-file value="vehicle5.rou.xml"/>
+    </output>
+
+    <processing>
+        <continue-on-unbuild value="true"/>
+    </processing>
+
+    <time>
+        <begin value="0"/>
+        <end value="300"/>
+    </time>
+
+    <report>
+        <verbose value="true"/>
+        <suppress-warnings value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<routes>
+    <vehicle id="f0_0" depart="0.00">
+        <route edges="R10 L30 R30 L10 R10 L30 R30 U20 D20 D40 U40 L10 R10 L30 R30 U20 D20"/>
+    </vehicle>
+    <vehicle id="f1_0" depart="0.00">
+        <route edges="R30 L10 R10 L30 R30 L10 R10 L30 R30 U20 D20 U20 D20 D40 U40 L10 R10"/>
+    </vehicle>
+    <vehicle id="f0_1" depart="60.00">
+        <route edges="R10 L30 R30 U20 D20 L10 R10 D40 U40 U20 D20 D40 U40 L10 R10 L30 R30"/>
+    </vehicle>
+    <vehicle id="f1_1" depart="60.00">
+        <route edges="R30 L10 R10 L30 R30 U20 D20 U20 D20 D40 U40 L10 R10 D40 U40 L10 R10"/>
+    </vehicle>
+    <vehicle id="f0_2" depart="120.00">
+        <route edges="R10 L30 R30 U20 D20 L30 R30 L10 R10 D40 U40 L10 R10 D40 U40 L30 R30"/>
+    </vehicle>
+    <vehicle id="f1_2" depart="120.00">
+        <route edges="R30 L10 R10 L30 R30 U20 D20 D40 U40 L30 R30 L10 R10 D40 U40 L10 R10"/>
+    </vehicle>
+    <vehicle id="f0_3" depart="180.00">
+        <route edges="R10 L30 R30 U20 D20 L10 R10 L30 R30 U20 D20 D40 U40 L30 R30 U20 D20"/>
+    </vehicle>
+    <vehicle id="f1_3" depart="180.00">
+        <route edges="R30 U20 D20 L10 R10 L30 R30 U20 D20 D40 U40 U20 D20 U20 D20 L30 R30"/>
+    </vehicle>
+    <vehicle id="f0_4" depart="240.00">
+        <route edges="R10 L30 R30 U20 D20 D40 U40 L30 R30 U20 D20 U20 D20 L10 R10 L30 R30"/>
+    </vehicle>
+    <vehicle id="f1_4" depart="240.00">
+        <route edges="R30 U20 D20 D40 U40 L10 R10 L30 R30 L10 R10 L30 R30 L10 R10 L30 R30"/>
+    </vehicle>
+</routes>

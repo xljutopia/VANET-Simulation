@@ -1,0 +1,12 @@
+<turn-defs>
+<interval begin="0" end="300">
+	    <fromedge id="R10">
+		<toedge id="L30" probability="80"></toedge>
+		<toedge id="D40" probability="20"></toedge>
+	    </fromedge>
+	    <fromedge id="R30">
+		<toedge id="L10" probability="40"></toedge>
+		<toedge id="U20" probability="60"></toedge>
+	    </fromedge>
+</interval>
+</turn-defs>
